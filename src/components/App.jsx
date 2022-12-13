@@ -6,6 +6,7 @@ import { LoadMoreBtn } from "./Button/Button";
 import styled from "styled-components";
 import { Oval } from "react-loader-spinner";
 import axios from "axios";
+import { Errormessage } from "./ErrorMessage/ErrorMessage";
 
 const BASE_URL = "https://pixabay.com/api/";
 const KEY = "30743258-d8407cc281d6c3ad648c29387"
@@ -45,8 +46,6 @@ export class App extends Component {
     }
   }
 
-  // componentDidMount(){
-  // }
 
 
   addImages = ({images}) => {
@@ -82,7 +81,7 @@ export class App extends Component {
         <>
           <SApp>
             <Searchbar onFormSubmit={this.onFormSubmit} />
-            {status === "rejected" && <p>Ooooppss!! : { error }</p>}  
+            {status === "rejected" && <Errormessage text={ error } />}  
           {images &&  <ImageGallery images={images} />}
           {status === "pending" && <Oval
                                       height={80}
@@ -95,8 +94,7 @@ export class App extends Component {
                                       ariaLabel='oval-loading'
                                       secondaryColor="#4fa94d"
                                       strokeWidth={2}
-                                      strokeWidthSecondary={2}
-            />}
+                                      strokeWidthSecondary={2}/>}
              {status === "resolved" && <LoadMoreBtn onBtnClick={ this.hendleBtnClick} />}
             <GlobalStyles />  
             </SApp>

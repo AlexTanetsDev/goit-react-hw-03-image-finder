@@ -2,6 +2,7 @@ import { Formik, ErrorMessage} from "formik"
 import * as yup from 'yup';
 import { Header, SearchBtn, SearchBtnLabel, SearchForm, SearchFormInput } from "./Searchbar.styled";
 import { BiSearchAlt2 } from "react-icons/bi";
+import PropTypes from "prop-types"
 
 const schema = yup.object().shape({
     searchQuery: yup.string().required(),
@@ -38,4 +39,8 @@ export const Searchbar = ({onFormSubmit}) => {
             </Formik>
 </Header>
     )
+}
+
+Searchbar.propTypes = {
+    onFormSubmit: PropTypes.func.isRequired
 }
