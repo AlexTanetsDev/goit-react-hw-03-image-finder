@@ -32,10 +32,15 @@ export class App extends Component {
    
       axios.get(`${BASE_URL}?q=${searchQuery}&page=${page}&key=${KEY}&image_type=photo&orientation=horizontal&per_page=12`)
         .then(response => {
+
           if (response.data.hits.length === 0) {
             this.setState({ error: "There are no images matching your request! Try another keyring", status: "rejected" })
           } else {
-            if(response.data.hits.length === response.data.total){ this.setState({status: "idle"})}else{this.setState({status: "resolved"})}
+            
+            if (response.data.hits.length === response.data.total || response.data.hits.length < 12 ) {
+              this.setState({ status: "idle" })
+            } else { this.setState({ status: "resolved" }) }
+
              this.addImages({
               images: response.data.hits.map(hit => {
                 return { id: hit.id, tags: hit.tags, largeImage: hit.largeImageURL, smallImage: hit.webformatURL }
