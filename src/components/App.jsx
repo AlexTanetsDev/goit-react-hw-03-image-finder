@@ -35,6 +35,7 @@ export class App extends Component {
           if (response.data.hits.length === 0) {
             this.setState({ error: "There are no images matching your request! Try another keyring", status: "rejected" })
           } else {
+            if(response.data.hits.length === response.data.total){ this.setState({status: "idle"})}else{this.setState({status: "resolved"})}
              this.addImages({
               images: response.data.hits.map(hit => {
                 return { id: hit.id, tags: hit.tags, largeImage: hit.largeImageURL, smallImage: hit.webformatURL }
@@ -51,10 +52,10 @@ export class App extends Component {
   addImages = ({images}) => {
 
     if (!this.state.images) {
-        this.setState({images: images, status: "resolved"})
+        this.setState({images: images})
     } else {
       this.setState(prevState => {
-        return { images: [...prevState.images, ...images], status: "resolved" }
+        return { images: [...prevState.images, ...images]}
       })
     }
  
